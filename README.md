@@ -1,6 +1,6 @@
 # Multi-Agent Gold Price Prediction Engine 🪙🤖
 
-**Business Overview:** In the current environment of war, political discturbances, unstable economy, policy changes that's impacting the commodity market. The objective of this program is to build a prototye for predicting the Gold Price. 
+**Business Overview:** In the current environment of war, political disturbances, unstable economy, policy changes that's impacting the commodity market. The objective of this MVP is to build a prototye for predicting the Gold Price. 
 
 **Tech Overview:** An asynchronous, state-driven multi-agent prototype built with Python and LangChain/LangGraph principles. This system decouples complex commodity forecasting into specialized, domain-expert agents that analyze macroeconomic data, market sentiment, and technical trend indicators in parallel, synthesizing them into a single, cohesive market intelligence report.
 

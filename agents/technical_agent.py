@@ -2,6 +2,8 @@
 import json
 from langchain_openai import ChatOpenAI
 from state.graph_state import AgentAnalysis, GoldPredictionState
+from tools.parser_utils import clean_and_parse_json  
+
 
 def run_technical_agent(state: GoldPredictionState, llm: ChatOpenAI) -> dict:
     """Analyzes price charts, historic resistance levels, support levels, and technical trends."""
@@ -24,6 +26,10 @@ def run_technical_agent(state: GoldPredictionState, llm: ChatOpenAI) -> dict:
     """
     
     response = llm.invoke(prompt)
-    #data = json.loads(response.content)
-    data = json.loads(str(response.content))
-    return {"technical_analysis": AgentAnalysis(**data)}
+    if not isinstance(response.content, str):
+        raise TypeError(f"Expected string output from LLM, got {type(response.content)}")
+        
+    # Safely clean and parse the JSON string payload
+    data = clean_and_parse_json(response.content)
+    
+    return {"sentiment_analysis": AgentAnalysis(**data)}

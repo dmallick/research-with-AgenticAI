@@ -4,6 +4,7 @@
 import json
 from langchain_openai import ChatOpenAI
 from state.graph_state import AgentAnalysis, GoldPredictionState
+from tools.parser_utils import clean_and_parse_json
 
 def run_macro_agent(state: GoldPredictionState, llm: ChatOpenAI) -> dict:
     """Analyzes Inflation, Interest Rates, Dollar Index (DXY), and Central Bank behaviors."""
@@ -29,6 +30,10 @@ def run_macro_agent(state: GoldPredictionState, llm: ChatOpenAI) -> dict:
     """
     
     response = llm.invoke(prompt)
-    data = json.loads(str(response.content))
-    #data = json.loads(response.content)
-    return {"macro_analysis": AgentAnalysis(**data)}
+    if not isinstance(response.content, str):
+        raise TypeError(f"Expected string output from LLM, got {type(response.content)}")
+        
+    # Safely clean and parse the JSON string payload
+    data = clean_and_parse_json(response.content)
+    
+    return {"sentiment_analysis": AgentAnalysis(**data)}
