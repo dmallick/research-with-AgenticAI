@@ -36,4 +36,5 @@ def run_macro_agent(state: GoldPredictionState, llm: ChatOpenAI) -> dict:
     # Safely clean and parse the JSON string payload
     data = clean_and_parse_json(response.content)
     
-    return {"sentiment_analysis": AgentAnalysis(**data)}
+    return {"macro_analysis": AgentAnalysis(**data)}
+    #return {"sentiment_analysis": AgentAnalysis(**data)}
